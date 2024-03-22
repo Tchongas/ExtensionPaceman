@@ -25,7 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
       formattedHTML += '<div class="run-popup-avatar">';
       formattedHTML += '<img src="http://cravatar.eu/helmavatar/' + entry.user.uuid + '" width="50" height="50" id="head">';
       formattedHTML += '</div>';
-      formattedHTML += '<div class="run-popup-info"><span><b>' + entry.nickname + ' </b></span></div>';
+      if (entry.user.liveAccount != null) {
+        formattedHTML += '<div class="run-popup-info"><a href="http://twitch.tv/' + entry.user.liveAccount + '" target="_blank"><b>' + entry.nickname + '</b></a></div>';
+      }
+      else { 
+        formattedHTML += '<div class="run-popup-info"><span><b>' + entry.nickname + ' </b></span></div>';
+      }
+      
       var lastEvent = entry.eventList[entry.eventList.length - 1];
       if (lastEvent) {
         formattedHTML += '<div><p><span class="run-split-text"> ' + getEventDescription(lastEvent.eventId) + '</span><br> IGT: <b class="run-split-time">' + formatTime(lastEvent.igt) + '</b> RTA: <b class="run-split-time">' + formatTime(lastEvent.rta) + '</b></p></div>';
