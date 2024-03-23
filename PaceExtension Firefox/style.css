@@ -1,0 +1,125 @@
+body {
+    background-color: #191C1B;
+    color: aliceblue;
+    width: 550px;
+    overflow-x: hidden;
+   
+    text-align: center;
+}
+
+a {
+    color: rgb(22, 146, 255);
+    text-decoration: none;
+}
+a:hover {
+    color: rgb(84, 175, 255);
+    text-decoration: none;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.run-popup-container {
+    min-width: 0;
+    padding: 10px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: rgb(54, 54, 70);
+    border-radius: 5px;
+
+}
+
+
+.run-popup-container p{
+    padding: 10px   ;
+    line-height: 1.2;
+    background-color: rgb(62, 62, 80);
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.run-popup-avatar {
+    
+}
+
+.run-popup-info {
+    padding: 10px;
+    width: 180px;
+    font-size: 20px;
+    word-wrap:break-word;
+}
+
+* {
+    scrollbar-width: thin; /* firefox */
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.title-text {
+    font-size: 30px;
+    color: aliceblue;
+    text-align: center;
+    margin-bottom: 10px;    
+}
+
+.run-split-text {
+    font-size: 20px;
+    text-align: center;
+    
+
+    font-weight: bold;
+}
+
+.run-split-time {
+    font-size: 20px;
+}
+
+
+
+.run-split-fortress {
+    color: rgb(224, 132, 132);
+}
+
+.run-split-bastion {
+    color: rgb(191, 209, 233);
+}
+
+.run-split-stronghold {
+    color: rgb(183, 193, 204);
+}       
+
+.run-split-end {
+    color: rgb(255, 255, 197);
+}
+
+.run-split-nether {
+    color: rgb(230, 157, 157);
+}
+
+.run-split-portal {
+    color: rgb(239, 159, 255);
+}
+
+.run-split-credits {
+    color: rgb(178, 255, 134);
+}
