@@ -1,22 +1,18 @@
 {
   "manifest_version": 3,
   "name": "PaceMan extension",
-  "description": "extension to see paceman in every tab",
-  "version": "1.3",
-  "permissions": ["activeTab", "storage"],
-  "host_permissions": ["https://www.speedrun.com/*"],
+  "description": "Its PaceMan but in a Pop-up you open in any tab by clicking the extension logo",
+  "version": "1.0",
   "action": {
     "default_popup": "index.html"
   },
   "icons": {
-    "128": "icon128.png"
+    "128": "128.png"
   },
-  "background": {
-    "service_worker": "backgrond.js"
-  },
+
   "content_scripts": [
     {
-      "matches": ["https://www.speedrun.com/*"],
+      "matches": ["<all_urls>"],
       "js": ["scripts/content.js"]
     }
   ]
