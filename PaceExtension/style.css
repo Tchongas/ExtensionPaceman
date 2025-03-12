@@ -2,6 +2,7 @@ body {
     background-color: #191C1B;
     color: aliceblue;
     width: 500px;
+    min-height: 500px;
    
     text-align: center;
 }
@@ -118,4 +119,61 @@ a:hover {
 
 .run-split-credits {
     color: rgb(178, 255, 134);
+}
+
+.settings {
+    width: 40px;
+    padding-inline: 3px;
+    margin-top: 4px;
+    left: 90%;
+    position: absolute;
+    color: rgb(255, 255, 255);
+    background-color: rgb(54, 54, 70);
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    font-size: 18px;
+}
+
+
+
+
+input[type=text] {
+    width: 120px;
+    padding: 5px;
+}
+button {
+    padding: 5px;
+    margin-left: 5px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    padding: 5px 0;
+}
+
+#containerInner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds spacing between elements */
+}
+
+#runnerList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.runner-name {
+    color: #f1f1f1;
+    border: #f1f1f1; 
+    border-radius: 5px;
+    text-decoration: none;
+    cursor:pointer;
+}
+
+.runner-name:hover {
+    color: #ffb3b3
 }
