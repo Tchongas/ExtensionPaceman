@@ -1,42 +1,31 @@
 const settingsButton = document.getElementById('settings');
+document.getElementById("addRunner").addEventListener("click", addRunner);
+document.getElementById("runnerInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        addRunner();
+    }
+});
+
+document.getElementById('whitelistOn').addEventListener('change', function() {
+    chrome.storage.local.set({ whitelistOn: this.checked });
+})
 
 settingsButton.addEventListener('click', function() {
     if (settingsButton.innerHTML === '<i class="fa fa-cog"></i>') {
         settingsButton.innerHTML = '<i class="fa fa-times"></i>';
-        changeUI();
+        console.log(document.getElementById('containerInner'));
+        document.getElementById('containerInner').classList.add('display-visible');
+        document.getElementById('containerInner').classList.remove('display-none');
+        document.getElementById('data').classList.add('display-none');
+        document.getElementById('data').classList.remove('display-visible');
     } else {
         settingsButton.innerHTML = '<i class="fa fa-cog"></i>';
-        document.getElementById('container').innerHTML = `<div id="data">Loading...</div>`;  
+        document.getElementById('containerInner').classList.add('display-none');
+        document.getElementById('containerInner').classList.remove('display-visible');
+        document.getElementById('data').classList.add('display-visible');
+        document.getElementById('data').classList.remove('display-none');
     }
 });
-
-function changeUI() {
-    document.getElementById('container').innerHTML = `
-        <div id="containerInner">
-        <div>
-            <input type="checkbox" id="whitelistOn">
-            <label for="whitelistOn">Enable Whitelist</label>
-        </div>
-        <div>
-            <input type="text" id="runnerInput" placeholder="Enter name">
-            <button id="addRunner">Add</button>
-        </div>
-            <h1>Whitelisted runners:</h1>
-            <p id="runnerList"></p>
-        </div>
-    `;  
-
-    addRunnerFromMemory();
-    
-
-    // Add event listeners *after* inserting the new elements
-    document.getElementById("addRunner").addEventListener("click", addRunner);
-    document.getElementById("runnerInput").addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            addRunner();
-        }
-    });
-}
 
 function addRunner() {
     const input = document.getElementById("runnerInput");
@@ -118,3 +107,5 @@ function removeRunner(name) {
         chrome.storage.local.set({ runners: newRunners });
     });
 }
+
+addRunnerFromMemory();

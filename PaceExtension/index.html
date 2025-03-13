@@ -7,6 +7,19 @@
     <p class="title-text"><b>PaceMan Extension</b><button id="settings" class="settings"><i class="fa fa-cog"></i></button></p>
     <div id ="container" class="container">
       <div id="data">Loading..</div>
+      <div id="containerInner" class="display-none">
+        <div>
+            <input type="checkbox" id="whitelistOn">
+            <label for="whitelistOn">Enable Whitelist</label>
+        </div>
+        <div>
+            <input type="text" id="runnerInput" placeholder="Enter name">
+            <button id="addRunner">Add</button>
+        </div>
+            <h1>Whitelisted runners:</h1>
+            <span><b>Click to remove</b></span>
+            <p id="runnerList"></p>
+        </div>
     </div>
     
     <script src="./popup/popup.js"></script>

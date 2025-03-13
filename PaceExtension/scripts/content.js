@@ -1,12 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
+    chrome.storage.local.get("whitelistOn", function (result) {
+      if (result.whitelistOn == true) {
+        document.getElementById('whitelistOn').checked = true;
+      }
+    });
+
+
+
     var dataElement = document.getElementById('data');
   
     function fetchData() {
       fetch('https://paceman.gg/api/ars/liveruns')
         .then(response => response.json())
         .then(data => {
-          var formattedData = formatData(data);
-          dataElement.innerHTML = formattedData;
+          formatData(data, function(formattedData) {
+            dataElement.innerHTML = formattedData;
+          });
         })
         .catch(error => {
           console.error('Error fetching data:', error);
@@ -17,29 +26,44 @@ document.addEventListener('DOMContentLoaded', function() {
   
     setInterval(fetchData, 8000);
    
-    function formatData(data) {
-      var formattedHTML = '';
+    function formatData(data, callback) {
+        chrome.storage.local.get(["runners", "whitelistOn"], function (result) {
+            let allowedRunners = result.runners || ""; // Get stored runners or empty array
+            let whitelistOn = result.whitelistOn; // Get whitelist status
     
-      data.forEach(entry => {
-        formattedHTML += '<div class="run-popup-container">'; 
-        formattedHTML += '<div class="run-popup-avatar">';
-        formattedHTML += '<img src="http://cravatar.eu/helmavatar/' + entry.user.uuid + '" width="50" height="50" id="head">';
-        formattedHTML += '</div>';
-        if (entry.user.liveAccount != null) {
-          formattedHTML += '<div class="run-popup-info"><a href="http://twitch.tv/' + entry.user.liveAccount + '" target="_blank"><b>' + entry.nickname + '</b></a></div>';
-        }
-        else { 
-          formattedHTML += '<div class="run-popup-info"><span><b>' + entry.nickname + ' </b></span></div>';
-        }
-        
-        var lastEvent = entry.eventList[entry.eventList.length - 1];
-        if (lastEvent) {
-          formattedHTML += '<div><p><span class="run-split-text"> ' + getEventDescription(lastEvent.eventId) + '</span><br> IGT: <b class="run-split-time">' + formatTime(lastEvent.igt) + '</b> RTA: <b class="run-split-time">' + formatTime(lastEvent.rta) + '</b></p></div>';
-        }
-        formattedHTML += '</div><br>';
-      });
-    
-      return formattedHTML;
+            // If whitelist is OFF, allow all runners
+            if (whitelistOn === false) {
+                allowedRunners = [];
+            }
+
+            let formattedHTML = '';
+
+      
+          data.forEach(entry => {
+            if (!allowedRunners.includes(entry.nickname) && allowedRunners.length > 0) {
+              return;
+            }
+      
+            formattedHTML += '<div class="run-popup-container">';
+            formattedHTML += '<div class="run-popup-avatar">';
+            formattedHTML += '<img src="http://cravatar.eu/helmavatar/' + entry.user.uuid + '" width="50" height="50" id="head">';
+            formattedHTML += '</div>';
+      
+            if (entry.user.liveAccount != null) {
+              formattedHTML += '<div class="run-popup-info"><a href="http://twitch.tv/' + entry.user.liveAccount + '" target="_blank"><b>' + entry.nickname + '</b></a></div>';
+            } else {
+              formattedHTML += '<div class="run-popup-info"><span><b>' + entry.nickname + ' </b></span></div>';
+            }
+      
+            let lastEvent = entry.eventList[entry.eventList.length - 1];
+            if (lastEvent) {
+              formattedHTML += '<div><p><span class="run-split-text"> ' + getEventDescription(lastEvent.eventId) + '</span><br> IGT: <b class="run-split-time">' + formatTime(lastEvent.igt) + '</b> RTA: <b class="run-split-time">' + formatTime(lastEvent.rta) + '</b></p></div>';
+            }
+            formattedHTML += '</div><br>';
+          });
+      
+          callback(formattedHTML); // Pass the formatted data to the callback
+        });
     }
   
     function formatTime(milliseconds) {

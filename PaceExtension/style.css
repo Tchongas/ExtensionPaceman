@@ -2,7 +2,6 @@ body {
     background-color: #191C1B;
     color: aliceblue;
     width: 500px;
-    min-height: 500px;
    
     text-align: center;
 }
@@ -139,7 +138,7 @@ a:hover {
 
 
 input[type=text] {
-    width: 120px;
+    width: 200px;
     padding: 5px;
 }
 button {
@@ -155,10 +154,13 @@ li {
 }
 
 #containerInner {
-    display: flex;
     flex-direction: column;
-    gap: 10px; /* Adds spacing between elements */
 }
+
+#containerInner div{
+    padding-block: 10px;
+}
+
 
 #runnerList {
     margin: 0;
@@ -176,4 +178,13 @@ li {
 
 .runner-name:hover {
     color: #ffb3b3
+}
+
+
+.display-none {
+    display: none;
+}
+
+.display-visible {
+    display: visible;
 }
